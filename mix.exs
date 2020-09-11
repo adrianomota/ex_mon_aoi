@@ -20,7 +20,7 @@ defmodule ExMonApi.MixProject do
   def application do
     [
       mod: {ExMonApi.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :scrivener]
     ]
   end
 
@@ -43,7 +43,9 @@ defmodule ExMonApi.MixProject do
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
-      {:argon2_elixir, "~> 2.3"}
+      {:argon2_elixir, "~> 2.3"},
+      {:scrivener_ecto, "~> 2.5"},
+      {:tesla, "~> 1.3"}
     ]
   end
 

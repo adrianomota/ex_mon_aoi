@@ -3,18 +3,59 @@ defmodule ExMonApiWeb.TrainersController do
 
   action_fallback ExMonApiWeb.FallbackController
 
+  def index(conn, %{"page" => page, "page_size" => page_size}) do
+    ExMonApi.index(page: page, page_size: page_size)
+    |> handle_response(conn, "index.json", :ok)
+  end
+
+  def show(conn, %{"id" => id}) do
+    id
+    |> ExMonApi.fetch_trainer()
+    |> handle_response(conn, "show.json", :ok)
+  end
+
   def create(conn, params) do
     params
     |> ExMonApi.create_trainer()
-    |> handle_reponse(conn)
+    |> handle_response(conn, "create.json", :created)
   end
 
-  @spec handle_reponse({:ok, any}, Plug.Conn.t()) :: Plug.Conn.t()
-  defp handle_reponse({:ok, trainer}, conn) do
+  def update(conn, params) do
+    params
+    |> ExMonApi.update_trainer()
+    |> handle_response(conn, "update.json", :ok)
+  end
+
+  def delete(conn, %{"id" => id}) do
+    id
+    |> ExMonApi.delete_trainer()
+    |> handle_delete(conn)
+  end
+
+  defp handle_response(
+         %Scrivener.Page{} = page,
+         conn,
+         view,
+         status
+       ) do
     conn
-    |> put_status(:ok)
-    |> render("create.json", trainer: trainer)
+    |> put_status(status)
+    |> render(view, page: page)
   end
 
-  defp handle_reponse({:error, _changeset} = error, _conn), do: error
+  defp handle_response({:ok, trainer}, conn, view, status) do
+    conn
+    |> put_status(status)
+    |> render(view, trainer: trainer)
+  end
+
+  defp handle_response({:error, _changeset} = error, _conn, _view, _status), do: error
+
+  defp handle_delete({:ok, _trainer}, conn) do
+    conn
+    |> put_status(:no_content)
+    |> text("")
+  end
+
+  defp handle_delete({:error, _reason} = error, _conn), do: error
 end
