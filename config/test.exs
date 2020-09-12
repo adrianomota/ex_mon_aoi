@@ -7,7 +7,7 @@ use Mix.Config
 # Run `mix help test` for more information.
 config :ex_mon_api, ExMonApi.Repo,
   username: "postgres",
-  password: "postgres",
+  password: "docker",
   database: "ex_mon_api_test#{System.get_env("MIX_TEST_PARTITION")}",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
@@ -20,3 +20,5 @@ config :ex_mon_api, ExMonApiWeb.Endpoint,
 
 # Print only warnings and errors during test
 config :logger, level: :warn
+
+config :tesla, adapter: Tesla.Mock
