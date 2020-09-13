@@ -3,7 +3,7 @@ defmodule ExMonApiWeb.PokemonsController do
 
   action_fallback ExMonApiWeb.FallbackController
 
-  def index(conn, %{"name" => name}) do
+  def show(conn, %{"name" => name}) do
     name
     |> ExMonApi.fetch_pokemon()
     |> handle_response(conn)

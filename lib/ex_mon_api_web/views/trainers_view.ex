@@ -2,6 +2,8 @@ defmodule ExMonApiWeb.TrainersView do
   use ExMonApiWeb, :view
   alias ExMonApi.Trainer
 
+  def render("sign_in.json", %{token: token}), do: %{token: token}
+
   def render("index.json", %{page: page}) do
     %{
       trainers: Enum.map(page.entries, &trainer_to_json/1),
@@ -21,12 +23,13 @@ defmodule ExMonApiWeb.TrainersView do
     }
   end
 
-  def render("create.json", %{trainer: %Trainer{id: id, name: name}}) do
+  def render("create.json", %{trainer: %Trainer{id: id, name: name}, token: token}) do
     %{
       data: %{
         id: id,
         name: name
-      }
+      },
+      token: token
     }
   end
 

@@ -1,7 +1,17 @@
 defmodule ExMonApiWeb.TrainersController do
   use ExMonApiWeb, :controller
 
+  alias ExMonApiWeb.Auth.Guardian
+
   action_fallback ExMonApiWeb.FallbackController
+
+  def sign_in(conn, params) do
+    with {:ok, token} <- Guardian.authenticate(params) do
+      conn
+      |> put_status(:ok)
+      |> render("sign_in.json", token: token)
+    end
+  end
 
   def index(conn, %{"page" => page, "page_size" => page_size}) do
     ExMonApi.index(page: page, page_size: page_size)
@@ -15,9 +25,12 @@ defmodule ExMonApiWeb.TrainersController do
   end
 
   def create(conn, params) do
-    params
-    |> ExMonApi.create_trainer()
-    |> handle_response(conn, "create.json", :created)
+    with {:ok, trainer} <- ExMonApi.create_trainer(params),
+         {:ok, token, _claims} <- Guardian.encode_and_sign(trainer) do
+      conn
+      |> put_status(:created)
+      |> render("create.json", %{trainer: trainer, token: token})
+    end
   end
 
   def update(conn, params) do

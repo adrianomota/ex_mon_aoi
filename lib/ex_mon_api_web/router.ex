@@ -5,14 +5,8 @@ defmodule ExMonApiWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", ExMonApiWeb do
-    pipe_through :api
-
-    resources "/trainers", TrainersController, only: [:index, :create, :show, :update, :delete]
-    resources "/pokemons", PokemonsController, only: [:index]
-
-    resources "/trainer_pokemons", TrainerPokemonsController,
-      only: [:create, :show, :update, :delete]
+  pipeline :auth do
+    plug ExMonApiWeb.Auth.Pipeline
   end
 
   # Enables LiveDashboard only for development
@@ -29,5 +23,22 @@ defmodule ExMonApiWeb.Router do
       pipe_through [:fetch_session, :protect_from_forgery]
       live_dashboard "/dashboard", metrics: ExMonApiWeb.Telemetry
     end
+  end
+
+  scope "/api", ExMonApiWeb do
+    pipe_through :api
+
+    post "/trainers", TrainersController, :create
+    post "/trainers/signin", TrainersController, :sign_in
+    post "/pokemons/:name", PokemonsController, :show
+  end
+
+  scope "/api", ExMonApiWeb do
+    pipe_through [:api, :auth]
+
+    resources "/trainers", TrainersController, only: [:index, :create, :show, :update, :delete]
+
+    resources "/trainer_pokemons", TrainerPokemonsController,
+      only: [:create, :show, :update, :delete]
   end
 end
