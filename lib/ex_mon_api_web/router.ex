@@ -29,14 +29,14 @@ defmodule ExMonApiWeb.Router do
     pipe_through :api
 
     post "/trainers", TrainersController, :create
-    post "/trainers/signin", TrainersController, :sign_in
+    post "/session/signin", SessionsController, :sign_in
     post "/pokemons/:name", PokemonsController, :show
   end
 
   scope "/api", ExMonApiWeb do
     pipe_through [:api, :auth]
 
-    resources "/trainers", TrainersController, only: [:index, :create, :show, :update, :delete]
+    resources "/trainers", TrainersController, only: [:index, :show, :update, :delete]
 
     resources "/trainer_pokemons", TrainerPokemonsController,
       only: [:create, :show, :update, :delete]
