@@ -1,6 +1,8 @@
 defmodule ExMonApi.Trainer.Create do
-  alias ExMonApi.Trainer
-  alias ExMonApi.Repo
+  @moduledoc """
+  Trainer create
+  """
+  alias ExMonApi.{Repo, Trainer}
 
   def call(params) do
     params

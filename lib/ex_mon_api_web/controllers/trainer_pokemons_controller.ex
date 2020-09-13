@@ -12,7 +12,6 @@ defmodule ExMonApiWeb.TrainerPokemonsController do
   def show(conn, %{"id" => id}) do
     id
     |> ExMonApi.fetch_trainer_pokemon()
-    |> IO.inspect()
     |> handle_response(conn, "show.json", :ok)
   end
 

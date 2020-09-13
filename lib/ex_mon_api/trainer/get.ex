@@ -1,7 +1,9 @@
 defmodule ExMonApi.Trainer.Get do
-  alias ExMonApi.Trainer
-  alias ExMonApi.Repo
+  @moduledoc """
+  Trainer Get
+  """
   alias Ecto.UUID
+  alias ExMonApi.{Repo, Trainer}
 
   def call(id) do
     case UUID.cast(id) do

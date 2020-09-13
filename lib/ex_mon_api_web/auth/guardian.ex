@@ -1,4 +1,7 @@
 defmodule ExMonApiWeb.Auth.Guardian do
+  @moduledoc """
+  Guardian auth generate token
+  """
   use Guardian, otp_app: :ex_mon_api
 
   alias ExMonApi.{Repo, Trainer}

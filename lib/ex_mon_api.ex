@@ -1,4 +1,7 @@
 defmodule ExMonApi do
+  @moduledoc """
+  ExMonApi facade
+  """
   alias ExMonApi.{Pokemon, Trainer}
   alias ExMonApi.Trainer.Pokemon, as: TrainerPokemon
 

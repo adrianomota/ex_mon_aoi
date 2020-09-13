@@ -1,4 +1,7 @@
 defmodule ExMonApi.Trainer.Pokemon do
+  @moduledoc """
+  Trainer pokemon schema
+  """
   use Ecto.Schema
   import Ecto.Changeset
 

@@ -1,7 +1,9 @@
 defmodule ExMonApi.Trainer.Pokemon.Get do
-  alias ExMonApi.Trainer.Pokemon
-  alias ExMonApi.Repo
+  @moduledoc """
+  Pokemon Get
+  """
   alias Ecto.UUID
+  alias ExMonApi.{Repo, Trainer.Pokemon}
 
   def call(id) do
     case UUID.cast(id) do

@@ -1,4 +1,7 @@
 defmodule ExMonApi.Trainer do
+  @moduledoc """
+  Trainer schema
+  """
   use Ecto.Schema
   import Ecto.Changeset
 

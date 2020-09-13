@@ -1,4 +1,7 @@
 defmodule ExMonApiWeb.Auth.ErrorHandler do
+  @moduledoc """
+  Error handler auth pipeline
+  """
   import Plug.Conn
 
   @behaviour Guardian.Plug.ErrorHandler

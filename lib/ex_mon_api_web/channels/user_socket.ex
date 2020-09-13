@@ -1,4 +1,5 @@
 defmodule ExMonApiWeb.UserSocket do
+  @moduledoc false
   use Phoenix.Socket
 
   ## Channels

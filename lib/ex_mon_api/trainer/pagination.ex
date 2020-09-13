@@ -1,6 +1,8 @@
 defmodule ExMonApi.Trainer.Pagination do
-  alias ExMonApi.Trainer
-  alias ExMonApi.Repo
+  @moduledoc """
+  Trainer pagination
+  """
+  alias ExMonApi.{Repo, Trainer}
 
   def call(params) do
     Trainer

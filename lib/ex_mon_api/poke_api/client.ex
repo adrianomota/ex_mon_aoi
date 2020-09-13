@@ -1,4 +1,7 @@
 defmodule ExMonApi.PokeApi.Client do
+  @moduledoc """
+  Pokeapi client with Tesla module
+  """
   use Tesla
 
   plug Tesla.Middleware.BaseUrl, "https://pokeapi.co/api/v2"
