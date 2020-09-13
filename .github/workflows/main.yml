@@ -42,4 +42,4 @@ jobs:
       - run: mix compile --warnings-as-errors
       - run: mix test
       - run: mix format --check-formatted
-      # - run: mix credo --strict
+      - run: mix credo --strict
