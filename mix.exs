@@ -46,8 +46,7 @@ defmodule ExMonApi.MixProject do
       {:argon2_elixir, "~> 2.3"},
       {:scrivener_ecto, "~> 2.5"},
       {:tesla, "~> 1.3"},
-      {:guardian, "~> 2.1"},
-      {:credo, "~> 1.4"}
+      {:guardian, "~> 2.1"}
     ]
   end
 
