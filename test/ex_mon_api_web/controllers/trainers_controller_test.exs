@@ -2,7 +2,7 @@ defmodule ExMonApiWeb.Controller.TrainersControllerTest do
   use ExMonApiWeb.ConnCase, async: true
 
   alias ExMonApiWeb.Auth.Guardian
-  alias ExMonApiWeb.Trainer
+  alias ExMonApi.Trainer
 
   describe "show/2" do
     setup %{conn: conn} do
