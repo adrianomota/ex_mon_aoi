@@ -1,5 +1,7 @@
 # ExMonApi
 
+ [![Actions Status](https://github.com/adrianomota/ex_mon_aoi/workflows/CI/badge.svg)](https://github.com/{adrianomota/ex_mon_aoi/CI)
+ 
 To start your Phoenix server:
 
   * Install dependencies with `mix deps.get`
