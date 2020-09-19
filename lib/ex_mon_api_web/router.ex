@@ -29,7 +29,7 @@ defmodule ExMonApiWeb.Router do
     pipe_through :api
 
     post "/trainers", TrainersController, :create
-    post "/session/signin", SessionsController, :sign_in
+    post "/sessions/signin", SessionsController, :sign_in
     post "/pokemons/:name", PokemonsController, :show
   end
 
