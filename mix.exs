@@ -47,7 +47,8 @@ defmodule ExMonApi.MixProject do
       {:scrivener_ecto, "~> 2.5"},
       {:tesla, "~> 1.3"},
       {:guardian, "~> 2.1"},
-      {:credo, "~> 1.4"}
+      {:credo, "~> 1.4"},
+      {:ex_machina, "~> 2.4", only: :test}
     ]
   end
 
