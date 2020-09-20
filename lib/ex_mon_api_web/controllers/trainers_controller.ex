@@ -5,14 +5,6 @@ defmodule ExMonApiWeb.TrainersController do
 
   action_fallback ExMonApiWeb.FallbackController
 
-  def sign_in(conn, params) do
-    with {:ok, token} <- Guardian.authenticate(params) do
-      conn
-      |> put_status(:ok)
-      |> render("sign_in.json", token: token)
-    end
-  end
-
   def index(conn, %{"page" => page, "page_size" => page_size}) do
     ExMonApi.index(page: page, page_size: page_size)
     |> handle_response(conn, "index.json", :ok)

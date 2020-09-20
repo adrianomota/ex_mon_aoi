@@ -6,7 +6,7 @@ defmodule ExMonApiWeb.Controller.TrainersControllerTest do
 
   describe "show/2" do
     setup %{conn: conn} do
-      params = %{name: "trainer 1", password: "123456"}
+      params = %{email: "adrianowsh@gmail.com", name: "trainer 1", password: "123456"}
 
       {:ok, trainer} = ExMonApi.create_trainer(params)
 
@@ -16,8 +16,8 @@ defmodule ExMonApiWeb.Controller.TrainersControllerTest do
       {:ok, conn: conn}
     end
 
-    test "when there is a trainer with the given id, returns the trainer", %{conn: conn} do
-      params = %{name: "adriano", password: "123456"}
+    test "when there is a trainer with the given email, returns the trainer", %{conn: conn} do
+      params = %{email: "adrianowsh@gmail.com", name: "adriano", password: "123456"}
 
       {:ok, %Trainer{id: id}} = ExMonApi.create_trainer(params)
 

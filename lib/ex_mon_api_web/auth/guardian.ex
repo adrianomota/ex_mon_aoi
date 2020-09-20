@@ -4,6 +4,7 @@ defmodule ExMonApiWeb.Auth.Guardian do
   """
   use Guardian, otp_app: :ex_mon_api
 
+  import Ecto.Query
   alias ExMonApi.{Repo, Trainer}
 
   def subject_for_token(trainer, _claims) do
@@ -17,9 +18,11 @@ defmodule ExMonApiWeb.Auth.Guardian do
     |> ExMonApi.fetch_trainer()
   end
 
-  def authenticate(%{"id" => trainer_id, "password" => password}) do
-    case Repo.get(Trainer, trainer_id) do
-      nil -> {:error, "trainer not found"}
+  def authenticate(%{"email" => email, "password" => password}) do
+    query = from(t in Trainer, where: t.email == ^email)
+
+    case Repo.one(query) do
+      nil -> {:error, :unauthorized}
       trainer -> validate_password(trainer, password)
     end
   end

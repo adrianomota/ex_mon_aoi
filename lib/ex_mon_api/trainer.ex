@@ -9,15 +9,18 @@ defmodule ExMonApi.Trainer do
 
   @primary_key {:id, Ecto.UUID, autogenerate: true}
 
+  @mail_regex ~r/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/
+
   schema "trainers" do
+    field :email, :string
     field :name, :string
     field :password, :string, virtual: true
     field :password_hash, :string
     has_many(:pokemon, Pokemon)
-    timestamps()
+    timestamps(type: :utc_datetime_usec)
   end
 
-  @required_params [:name, :password]
+  @required_params [:email, :name, :password]
 
   def build(params) do
     params
@@ -32,7 +35,9 @@ defmodule ExMonApi.Trainer do
     module_or_trainer
     |> cast(params, @required_params)
     |> validate_required(@required_params)
+    |> validate_email(:email)
     |> validate_length(:password, min: 6)
+    |> unique_constraint(:email)
     |> put_pass_hash()
   end
 
@@ -41,4 +46,9 @@ defmodule ExMonApi.Trainer do
   end
 
   defp put_pass_hash(changeset), do: changeset
+
+  defp validate_email(changeset, field) do
+    changeset
+    |> validate_format(field, @mail_regex)
+  end
 end

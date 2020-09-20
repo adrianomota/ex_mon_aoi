@@ -9,7 +9,7 @@ defmodule ExMonApi.Trainer.CreateTest do
 
   describe "call/1" do
     test "when all params are valid, returns a trainer" do
-      params = %{name: "Adriano", password: "123456"}
+      params = %{email: "adrianowsh@gmail.com", name: "Adriano", password: "123456"}
 
       count_before = Repo.aggregate(Trainer, :count)
 
@@ -23,7 +23,7 @@ defmodule ExMonApi.Trainer.CreateTest do
     end
 
     test "when there are invalid params, returns the error" do
-      params = %{name: "Adriano"}
+      params = %{email: "adrianowsh@gmail.com", name: "Adriano"}
 
       response = Create.call(params)
 
