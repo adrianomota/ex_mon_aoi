@@ -1,6 +1,8 @@
 defmodule ExMonApi.Trainer.CreateTest do
   use ExMonApi.DataCase, async: true
 
+  use ExMachina
+
   alias ExMonApi.Trainer
 
   alias ExMonApi.Trainer.Create
@@ -9,7 +11,11 @@ defmodule ExMonApi.Trainer.CreateTest do
 
   describe "call/1" do
     test "when all params are valid, returns a trainer" do
-      params = %{email: "adrianowsh@gmail.com", name: "Adriano", password: "123456"}
+      params = %{
+        email: sequence(:email, &"email-#{&1}@example.com"),
+        name: "Adriano",
+        password: "123456"
+      }
 
       count_before = Repo.aggregate(Trainer, :count)
 
@@ -22,13 +28,28 @@ defmodule ExMonApi.Trainer.CreateTest do
       assert count_after > count_before
     end
 
-    test "when there are invalid params, returns the error" do
-      params = %{email: "adrianowsh@gmail.com", name: "Adriano"}
+    test "when there are invalid params, returns  the validation errors" do
+      params = %{}
 
       response = Create.call(params)
 
       assert {:error, changeset} = response
-      assert errors_on(changeset) == %{password: ["can't be blank"]}
+
+      assert errors_on(changeset) == %{
+               email: ["can't be blank"],
+               name: ["can't be blank"],
+               password: ["can't be blank"]
+             }
+    end
+
+    test "when there are email invalid, returns the validation error" do
+      params = %{name: "Adriano", email: "xxxxxx", password: "123456"}
+
+      response = Create.call(params)
+
+      assert {:error, changeset} = response
+
+      assert errors_on(changeset) == %{email: ["has invalid format"]}
     end
   end
 end

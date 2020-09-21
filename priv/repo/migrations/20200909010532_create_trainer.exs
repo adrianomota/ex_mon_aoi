@@ -9,5 +9,7 @@ defmodule ExMonApi.Repo.Migrations.CreateTrainer do
       add :password_hash, :string
       timestamps(type: :utc_datetime_usec)
     end
+
+    create unique_index(:trainers, [:email])
   end
 end

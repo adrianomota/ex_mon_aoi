@@ -29,6 +29,7 @@ defmodule ExMonApi.Trainer do
   end
 
   def changeset(params), do: create_changeset(%__MODULE__{}, params)
+
   def changeset(trainer, params), do: create_changeset(trainer, params)
 
   defp create_changeset(module_or_trainer, params) do
@@ -36,8 +37,8 @@ defmodule ExMonApi.Trainer do
     |> cast(params, @required_params)
     |> validate_required(@required_params)
     |> validate_email(:email)
-    |> validate_length(:password, min: 6)
     |> unique_constraint(:email)
+    |> validate_length(:password, min: 6)
     |> put_pass_hash()
   end
 

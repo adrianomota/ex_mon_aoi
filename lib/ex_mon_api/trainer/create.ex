@@ -7,6 +7,7 @@ defmodule ExMonApi.Trainer.Create do
   def call(params) do
     params
     |> Trainer.build()
+    |> IO.inspect()
     |> create_trainer()
   end
 
