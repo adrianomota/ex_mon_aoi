@@ -51,5 +51,16 @@ defmodule ExMonApi.Trainer.CreateTest do
 
       assert errors_on(changeset) == %{email: ["has invalid format"]}
     end
+
+    test "when there are email duplicated, returns the validation error" do
+      params = %{name: "Adriano", email: "adrianowsh@hotmail.com", password: "123456"}
+
+      Create.call(params)
+      response = Create.call(params)
+
+      assert {:error, changeset} = response
+
+      assert errors_on(changeset) == %{email: ["has already been taken"]}
+    end
   end
 end

@@ -2,7 +2,7 @@ defmodule ExMonApi.Trainer.Create do
   @moduledoc """
   Trainer create
   """
-  alias ExMonApi.{Repo, Trainer}
+  alias ExMonApi.Trainer
 
   def call(params) do
     params
@@ -10,7 +10,7 @@ defmodule ExMonApi.Trainer.Create do
     |> create_trainer()
   end
 
-  defp create_trainer({:ok, struct}), do: Repo.insert(struct)
+  defp create_trainer({:ok, struct}), do: {:ok, struct}
 
   defp create_trainer({:error, _changeset} = error), do: error
 end

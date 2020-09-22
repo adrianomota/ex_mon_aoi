@@ -10,6 +10,6 @@ defmodule ExMonApi.Repo.Migrations.CreateTrainer do
       timestamps(type: :utc_datetime_usec)
     end
 
-    create unique_index(:trainers, [:email])
+    create unique_index(:trainers, [:email], name: :email_index)
   end
 end

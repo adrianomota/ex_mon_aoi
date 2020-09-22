@@ -5,7 +5,7 @@ defmodule ExMonApi.Trainer do
   use Ecto.Schema
   import Ecto.Changeset
 
-  alias ExMonApi.Trainer.Pokemon
+  alias ExMonApi.{Repo, Trainer.Pokemon}
 
   @primary_key {:id, Ecto.UUID, autogenerate: true}
 
@@ -25,9 +25,11 @@ defmodule ExMonApi.Trainer do
   def build(params) do
     params
     |> changeset()
-    |> apply_action(:insert)
+    |> Repo.insert()
   end
 
+  @spec changeset(:invalid | %{optional(:__struct__) => none, optional(atom | binary) => any}) ::
+          Ecto.Changeset.t()
   def changeset(params), do: create_changeset(%__MODULE__{}, params)
 
   def changeset(trainer, params), do: create_changeset(trainer, params)
@@ -36,8 +38,8 @@ defmodule ExMonApi.Trainer do
     module_or_trainer
     |> cast(params, @required_params)
     |> validate_required(@required_params)
+    |> unique_constraint(:email, name: :email_index)
     |> validate_email(:email)
-    |> unique_constraint(:email)
     |> validate_length(:password, min: 6)
     |> put_pass_hash()
   end
