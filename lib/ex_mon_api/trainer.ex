@@ -28,8 +28,6 @@ defmodule ExMonApi.Trainer do
     |> Repo.insert()
   end
 
-  @spec changeset(:invalid | %{optional(:__struct__) => none, optional(atom | binary) => any}) ::
-          Ecto.Changeset.t()
   def changeset(params), do: create_changeset(%__MODULE__{}, params)
 
   def changeset(trainer, params), do: create_changeset(trainer, params)
